@@ -51,14 +51,14 @@ def extract_face(image_path):
         if pre[0][0] > pre[0][1]:
             result = {
                 "result": CHECK_CATEGOLY[0],
-                "score": str(pre),
+                "score": pre[0][0],
                 "img_url": output_path
             }
             return result
         else:
             result = {
                 "result": CHECK_CATEGOLY[1],
-                "score": str(pre),
+                "score": pre[0][1],
                 "img_url": output_path
             }
             return result
