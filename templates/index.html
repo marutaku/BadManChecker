@@ -1,16 +1,65 @@
 {% extends "layout.html" %}
 {% block body %}
-<form action="{{url_for('face_detection')}}" method="post">
+<h2>
+    この診断は<b>ネタ</b>です。<br>
+    悪人顔だったとしても傷つかないでください
+</h2>
+<form id="uploader">
     <dl>
         <dt>
-            Your Face:
+            あなたが
+            <ul>
+                <li>一人で写っている</li>
+                <li>顔がはっきりと見える</li>
+            </ul>
+            画像を選択してください
         </dt>
         <dd>
             <input type="file" name="face_picture">
         </dd>
         <dd>
-            <input type="submit" value="送信">
+            <input type="button" id="submit-button" value="送信">
         </dd>
     </dl>
+    <div id="result">
+    </div>
+    <div id="img-area"></div>
 </form>
+
+<script>
+    $('#submit-button').click((e) => {
+        e.preventDefault();
+        const fd = new FormData();
+        fd.append('file', $("input[name='face_picture']").prop("files")[0]);
+        $.ajax({
+            url: "{{url_for('face_detection')}}",
+            type: "POST",
+            data: fd,
+            processData: false,
+            contentType: false
+        }).success((res) => {
+            const targetDOM = $('#result');
+            let text;
+            switch (res.result) {
+                case "badman":
+                    text = "残念！<b>悪人顔</b>でした！！！<br>" +
+                        "この診断はあくまでネタだということを忘れないでください";
+                    targetDOM.html(text);
+                    break;
+                case "goodman":
+                    text = "おめでとう！<b>善人顔</b>でした！！！<br>" +
+                        "この診断はあくまでネタだということを忘れないでください";
+                    targetDOM.html(text);
+                    break;
+                default:
+                    targetDOM.html(res.result)
+            }
+            const src = res.img_url.split('/')[1];
+            $('#img-area').html(`<img src="/img/${src}">`)
+
+        }).error((res) => {
+            $('#result').html(res.result)
+        })
+    })
+</script>
 {% endblock %}
