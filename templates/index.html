@@ -55,7 +55,7 @@
                     targetDOM.html(res.result)
             }
             const src = res.img_url.split('/')[1];
-            $('#img-area').html(`<img src="/img/${src}">`)
+            $('#img-area').html(`<img src="/img/${src}" width="160" height="160">`)
 
         }).error((res) => {
             $('#result').html(res.result)
