@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block body %}
+<form action="{{url_for('face_detection')}}" method="post">
+    <dl>
+        <dt>
+            Your Face:
+        </dt>
+        <dd>
+            <input type="file" name="face_picture">
+        </dd>
+        <dd>
+            <input type="submit" value="送信">
+        </dd>
+    </dl>
+</form>
+{% endblock %}
