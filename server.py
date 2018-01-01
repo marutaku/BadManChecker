@@ -8,7 +8,7 @@ IMG_PATH = 'img/'
 app = Flask(__name__, static_folder="img")
 print(app.url_map)
 
-ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg']
+ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'JPG']
 def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
