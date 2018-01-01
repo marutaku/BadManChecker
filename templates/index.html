@@ -42,12 +42,12 @@
             let text;
             switch (res.result) {
                 case "badman":
-                    text = `残念！<b>悪人顔</b>でした！！！(${res.score * 100}%)<br>` +
+                    text = `残念！<b>悪人顔</b>でした！！！(${parseFloat(res.score) * 100}%)<br>` +
                         "この診断はあくまでネタだということを忘れないでください";
                     targetDOM.html(text);
                     break;
                 case "goodman":
-                    text = `おめでとう！<b>善人顔</b>でした！！！(${res.score * 100}%)<br>` +
+                    text = `おめでとう！<b>善人顔</b>でした！！！(${parseFloat(res.score) * 100}%)<br>` +
                         "この診断はあくまでネタだということを忘れないでください";
                     targetDOM.html(text);
                     break;
