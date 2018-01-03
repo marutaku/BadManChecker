@@ -58,7 +58,7 @@
             $('#img-area').html(`<img src="/img/${src}" width="160" height="160">`)
 
         }).error((res) => {
-            $('#result').html(res.result)
+            $('#result').html(res.responseJSON.result)
         })
     })
 </script>
