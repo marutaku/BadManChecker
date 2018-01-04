@@ -5,42 +5,43 @@
     悪人顔だったとしても傷つかないでください
 </h2>
 <!--<form id="uploader">-->
-    <!--<dl>-->
-        <!--<dt>-->
-            <!--あなたが-->
-            <!--<ul>-->
-                <!--<li>一人で写っている</li>-->
-                <!--<li>顔がはっきりと見える</li>-->
-            <!--</ul>-->
-            <!--画像を選択してください-->
-        <!--</dt>-->
-        <!--<dd>-->
-            <!--<input type="file" name="face_picture">-->
-        <!--</dd>-->
-        <!--<dd>-->
-            <!--<input type="button" id="submit-button" value="送信">-->
-        <!--</dd>-->
-    <!--</dl>-->
-    <!--<div id="result">-->
-    <!--</div>-->
-    <!--<div id="img-area"></div>-->
+<!--<dl>-->
+<!--<dt>-->
+<!--あなたが-->
+<!--<ul>-->
+<!--<li>一人で写っている</li>-->
+<!--<li>顔がはっきりと見える</li>-->
+<!--</ul>-->
+<!--画像を選択してください-->
+<!--</dt>-->
+<!--<dd>-->
+<!--<input type="file" name="face_picture">-->
+<!--</dd>-->
+<!--<dd>-->
+<!--<input type="button" id="submit-button" value="送信">-->
+<!--</dd>-->
+<!--</dl>-->
 <!--</form>-->
 <form action="#" id="uploader">
     <div class="file-field input-field">
-      <div class="btn">
-        <span>画像を選択</span>
-        <input type="file" name="face_picture">
-      </div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text" placeholder="png, jpgのみ">
-      </div>
+        <div class="btn">
+            <span>画像を選択</span>
+            <input type="file" name="face_picture">
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="png, jpgのみ">
+        </div>
     </div>
     <button id="submit-button" class="btn waves-effect waves-light" type="submit" name="action">Submit
-  </button>
-  </form>
+    </button>
+</form>
+<div id="result"></div>
+<div id="img-area"></div>
+
 
 <script>
     $('#submit-button').click((e) => {
+        debugger;
         e.preventDefault();
         const fd = new FormData();
         fd.append('file', $("input[name='face_picture']").prop("files")[0]);
