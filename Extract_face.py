@@ -9,7 +9,7 @@ import glob
 import os
 import time
 
-CASCADE_PATH = "/usr/local/Cellar/opencv/3.3.1_1/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml"
+CASCADE_PATH = os.environ["CV2_CASCADE_FILE_PATH"]
 cascade = cv2.CascadeClassifier(CASCADE_PATH)
 color = (255, 255, 255)
 image_size = 32
@@ -20,6 +20,7 @@ def extract_face(image_path):
     facerect = cascade.detectMultiScale(image, scaleFactor=1.2, minNeighbors=2, minSize=(10, 10))
     frontalface_path = "{}frontalface.png".format(image_path)
     cv2.imwrite(frontalface_path, image)
+    os.remove(image_path)
     img = cv2.imread(frontalface_path)
     print(len(facerect))
     if len(facerect) == 0:
@@ -33,6 +34,7 @@ def extract_face(image_path):
         dst = img[y:y + height, x:x + width]
         output_path = "{}out.png".format(image_path)
         cv2.imwrite(output_path, dst)
+        os.remove(frontalface_path)
         cv2.imread(output_path)
         X = []
 

@@ -2,11 +2,12 @@ from flask import Flask, render_template, request, jsonify, Response
 import uuid
 import os
 from  Extract_face import extract_face
+import sys 
+
 
 IMG_PATH = 'img/'
 
 app = Flask(__name__, static_folder="img")
-print(app.url_map)
 
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'JPG']
 def allowed_file(filename):
@@ -32,6 +33,7 @@ def face_detection():
             return response
         response = jsonify(result)
         response.status_code = 200
+
         return response
     else:
         response = jsonify({'result': 'ファイルの形式が不正です'})
@@ -39,4 +41,5 @@ def face_detection():
         return response
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(sys.argv[1])
+    app.run(debug=False, host='0.0.0.0', port=port)

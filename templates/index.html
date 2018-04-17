@@ -1,9 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
-<h2>
-    この診断は<b>ネタ</b>です。<br>
-    悪人顔だったとしても傷つかないでください
-</h2>
+<div style="margin-bottom: 40px;">
+    <h3>
+        この診断は<b>ネタ</b>です。<br>
+        悪人顔だったとしても傷つかないでください
+    </h3>
+</div>
+
 <!--<form id="uploader">-->
 <!--<dl>-->
 <!--<dt>-->
@@ -35,13 +38,12 @@
     <button id="submit-button" class="btn waves-effect waves-light" type="submit" name="action">Submit
     </button>
 </form>
-<div id="result"></div>
+<div id="result" ></div>
 <div id="img-area"></div>
 
 
 <script>
     $('#submit-button').click((e) => {
-        debugger;
         e.preventDefault();
         const fd = new FormData();
         fd.append('file', $("input[name='face_picture']").prop("files")[0]);
@@ -69,7 +71,7 @@
                     targetDOM.html(res.result)
             }
             const src = res.img_url.split('/')[1];
-            $('#img-area').html(`<img src="/img/${src}" width="160" height="160">`)
+            $('#img-area').html(`<img src="/img/${src}" width="300" height="300" style="margin: auto;">`)
 
         }).error((res) => {
             $('#result').html(res.responseJSON.result)
