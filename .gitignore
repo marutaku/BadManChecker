@@ -1,0 +1,13 @@
+/datasets
+/__pycache__
+
+/*.npy
+
+/img
+/*.png
+/*.jpeg
+/*.jpg
+/*.JPG
+/*.sh
+/settings.py
+.idea/*
