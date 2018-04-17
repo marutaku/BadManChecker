@@ -5,6 +5,7 @@ ENV CV2_CASCADE_FILE_PATH="/usr/local/share/OpenCV/haarcascades/haarcascade_fron
 RUN apt-get install git
 RUN git clone https://github.com/marutaku/BadManChecker.git
 WORKDIR /BadManChecker
+RUN pip install --upgrade pip
 RUN pip install -r requirement.txt
 
 CMD python server.py $PORT
