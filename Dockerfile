@@ -7,6 +7,7 @@ RUN git clone --depth 1 https://github.com/marutaku/BadManChecker.git
 WORKDIR /BadManChecker
 RUN pip install --upgrade pip
 RUN pip install -r requirement.txt
+RUN pip install Pillow
 
 CMD python server.py $PORT
 
