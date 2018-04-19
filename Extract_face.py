@@ -8,6 +8,7 @@ import argparse
 import glob
 import os
 import time
+import logging
 
 CASCADE_PATH = os.environ["CV2_CASCADE_FILE_PATH"]
 cascade = cv2.CascadeClassifier(CASCADE_PATH)
@@ -15,14 +16,14 @@ color = (255, 255, 255)
 image_size = 32
 
 def extract_face(image_path):
-    print('Extract face...')
+    logging.info('Extract face...')
     image = cv2.imread(image_path)
     facerect = cascade.detectMultiScale(image, scaleFactor=1.2, minNeighbors=2, minSize=(10, 10))
     frontalface_path = "{}frontalface.png".format(image_path)
     cv2.imwrite(frontalface_path, image)
     os.remove(image_path)
     img = cv2.imread(frontalface_path)
-    print(len(facerect))
+    logging.info(len(facerect))
     if len(facerect) == 0:
         return False
     for rect in facerect:
@@ -46,10 +47,10 @@ def extract_face(image_path):
 
         model = train.build_model(X.shape[1:])
         model.load_weights("face-model2.h5py")
-        print('model predict start')
+        logging.info('model predict start')
 
         pre = model.predict(X)
-        print(pre)
+        logging.info(pre)
         if pre[0][0] > pre[0][1]:
             result = {
                 "result": CHECK_CATEGORY[0],
