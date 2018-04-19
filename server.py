@@ -2,17 +2,28 @@ from flask import Flask, render_template, request, jsonify, Response
 import uuid
 import os
 from  Extract_face import extract_face
-import sys 
+import sys
+from glob import glob
+import logging
 
 
 IMG_PATH = 'img/'
 
 app = Flask(__name__, static_folder="img")
 
+logger = logging.getLogger(__name__)
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'JPG']
 def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+@app.before_request
+def delete_old_file():
+    file_array = glob(IMG_PATH + '*')
+    if len(file_array) >= 10:
+        file_array.sort(key=lambda x: int(os.path.getctime(x)))
+        logger.info('Delete image: {}'.format(file_array[0]))
+        os.remove(file_array[0])
 
 @app.route('/')
 def index():
@@ -20,8 +31,8 @@ def index():
 
 @app.route('/', methods=['POST'])
 def face_detection():
+    delete_old_file()
     img = request.files['file']
-    print(img)
     id = uuid.uuid4()
     if img and allowed_file(img.filename):
         image_path = os.path.join(IMG_PATH) + id.hex + img.filename
