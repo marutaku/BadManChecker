@@ -1,7 +1,7 @@
 import cv2
 from PIL import Image
 from keras.preprocessing.image import load_img, img_to_array
-from settings import CHECK_CATEGOLY
+from settings import CHECK_CATEGORY
 import train
 import numpy as np
 import argparse
@@ -52,14 +52,14 @@ def extract_face(image_path):
         print(pre)
         if pre[0][0] > pre[0][1]:
             result = {
-                "result": CHECK_CATEGOLY[0],
+                "result": CHECK_CATEGORY[0],
                 "score": str(pre[0][0]),
                 "img_url": output_path
             }
             return result
         else:
             result = {
-                "result": CHECK_CATEGOLY[1],
+                "result": CHECK_CATEGORY[1],
                 "score": str(pre[0][1]),
                 "img_url": output_path
             }
