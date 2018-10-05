@@ -41,16 +41,7 @@ def extract_face(image_path):
 
         img = load_img(output_path, target_size=(image_size, image_size))
         in_data = img_to_array(img)
-        X.append(in_data)
-        X = np.array(X)
-        X = X.astype("float") / 256
-
-        model = train.build_model(X.shape[1:])
-        model.load_weights("face-model2.h5py")
-        logging.info('model predict start')
-
-        pre = model.predict(X)
-        logging.info(pre)
+        pre = predict(in_data)
         if pre[0][0] > pre[0][1]:
             result = {
                 "result": CHECK_CATEGORY[0],
@@ -65,6 +56,24 @@ def extract_face(image_path):
                 "img_url": output_path
             }
             return result
+
+def predict(image_array):
+    '''
+    :param image_array: opencvで読み込まれた画像
+    :return: softmax関数の出力結果
+    '''
+    X = []
+    X.append(image_array)
+    X = np.array(X)
+    X = X.astype("float") / 256
+    model = train.build_model(X.shape[1:])
+    model.load_weights("face-model2.h5py")
+    logging.info('model predict start')
+    pre = model.predict(X)
+    logging.info(pre)
+    return pre
+
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='clip face-image from imagefile and do data argumentation.')
